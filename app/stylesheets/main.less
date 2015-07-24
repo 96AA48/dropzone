@@ -1,0 +1,97 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic|Open+Sans:300italic,400italic,400,300,600);
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: none;
+}
+
+body {
+    background-color: #3498DB;
+}
+
+.topbar {
+  height: 55px;
+  width: 100%;
+  background-color: #2C3E50;
+  color: #E1E1E1;
+  font-family: Open Sans;
+  font-weight: 300 !important;
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  h3 {
+    line-height: 50px;
+    font-size: 25px !important;
+    float: left;
+    margin-left: 10px;
+  }
+
+  i {
+    font-size: 35px;
+    float: right;
+    line-height: 55px;
+    margin-right: 10px;
+  }
+}
+
+.container {
+  height: ~"calc(100% - 55px)";
+  border-left: solid 1px #2C3E50;
+  background-color: #2980B9;
+  margin-left: 40px;
+  position: relative;
+
+  .dropzone {
+    border: dashed 3px #E74C3C;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+
+    span {
+      font-family: Open Sans;
+      color: #F1F1F1;
+      display: block;
+      text-align: center;
+      margin-top: 47%;
+    }
+  }
+}
+
+.sidebar {
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #E1E1E1;
+    text-align: center;
+    height: 100%;
+    background-color: #3498DB;
+    width: 40px;
+    float: left;
+
+    li {
+      border-bottom: solid 1px #2C3E50;
+      height: 40px;
+      font-size: 37px;
+      -webkit-transition: .5s ease;
+
+      &:hover {
+        -webkit-transition: .5s ease;
+        color: #E74C3C;
+      }
+
+      i {
+        font-size: 30px;
+      }
+    }
+  }
+}

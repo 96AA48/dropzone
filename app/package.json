@@ -1,0 +1,23 @@
+{
+  "name": "dropzone",
+  "productName": "Dropzone",
+  "description": "Share files by becoming your own host, share files by dragging and dropping them into a window.",
+  "version": "0.1.0",
+  "author": "Mr Gumby <gumby@sillywalks.com>",
+  "main": "app.html",
+  "window": {
+    "icon": "icon.png",
+    "show": true,
+    "toolbar": true,
+    "width": 450,
+    "height": 500,
+    "min_width": 450,
+    "min_height": 500,
+    "max_height": 500,
+    "max_width": 450,
+    "position": "center"
+  },
+  "dependencies": {
+    "fs-jetpack": "^0.6.4"
+  }
+}

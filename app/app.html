@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dropzone</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="./stylesheets/main.css" rel="stylesheet" type="text/css">
+
+  <!-- Scripts giving you few extra things in NW.js -->
+  <script src="vendor/nw-boilerplate/window_state.js"></script>
+  <script src="vendor/nw-boilerplate/context_menu.js"></script>
+  <script src="vendor/nw-boilerplate/external_links.js"></script>
+  <script src="vendor/nw-boilerplate/dev_helper.js"></script>
+  <script src="vendor/nw-boilerplate/env_config.js"></script>
+  <script>
+    (function () {
+      var gui = require('nw.gui');
+      var win = gui.Window.get();
+
+      // Create default menu items for OSX
+      if (process.platform === 'darwin') {
+        var mb = new gui.Menu({ type: "menubar" });
+        mb.createMacBuiltin(gui.App.manifest.productName);
+        win.menu = mb;
+      }
+    }());
+  </script>
+
+  <!-- Load real app code -->
+  <script src="vendor/require.js"></script>
+  <script>
+      requirejs(['app'], function (app) {});
+  </script>
+</head>
+<body>
+  <div class="topbar">
+    <h3>Dropzone</h3><i class="material-icons cloud">cloud</i>
+  </div>
+
+  <div class="sidebar">
+    <ul>
+      <li class="dropzone"><i class="material-icons">texture</i></li>
+      <li><i class="material-icons">view_list</i></li>
+      <li><i class="material-icons">wifi</i></li>
+      <li><i class="material-icons">settings</i></li>
+      <li><i class="material-icons">open_in_browser</i></li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="dropzone">
+      <span>Drop your files in here to share them!</span>
+    </div>
+  </div>
+
+</body>
+</html>
