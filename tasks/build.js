@@ -15,6 +15,8 @@ var destDir = projectDir.cwd('./build');
 var paths = {
     jsCodeToTranspile: [
         'app/**/*.js',
+        'app/dropzone/**',
+        'app/dropzone/*.db',
         '!app/node_modules/**',
         '!app/bower_components/**',
         '!app/vendor/**'
@@ -52,7 +54,7 @@ var transpileTask = function () {
     return gulp.src(paths.jsCodeToTranspile)
     .pipe(map(function(code, filename) {
         try {
-            var transpiled = esperanto.toAmd(code.toString(), { strict: true });
+            var transpiled = code.toString();//esperanto.toAmd(code.toString(), { strict: true });
         } catch (err) {
             throw new Error(err.message + ' ' + filename);
         }
