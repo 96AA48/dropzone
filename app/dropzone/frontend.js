@@ -2,24 +2,12 @@
 var database = require('./database');
 var $ = require('jquery');
 
-$('.container .dropzone, html, body').on('dragover',
-  function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-);
-
-$('.container .dropzone, html, body').on('dragenter',
-  function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-);
-
+//Frontend listeners for dropping files
+$('.container .dropzone, html, body').on('dragover', prevent_default);
+$('.container .dropzone, html, body').on('dragenter', prevent_default);
 $('.container .dropzone').on('drop',
   function(event) {
-    event.preventDefault();
-    event.stopPropagation();
+    prevent_default(event);
 
     if (event.originalEvent.dataTransfer){
       var files = event.originalEvent.dataTransfer.files;
@@ -30,3 +18,8 @@ $('.container .dropzone').on('drop',
     }
   }
 );
+
+function prevent_default(event) {
+  event.preventDefault();
+  event.stopPropagation();
+}
