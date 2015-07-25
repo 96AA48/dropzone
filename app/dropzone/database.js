@@ -10,4 +10,13 @@ function add(database_entry) {
   });
 }
 
-module.exports = {'add': add};
+function list(callback) {
+  db.loadDatabase();
+  console.log('Getting database_list');
+  db.find({}, function (err, database_list) {
+    if (err) console.warn('Error getting database_list', err);
+    else callback(database_list);
+  });
+}
+
+module.exports = {'add': add, 'list': list};

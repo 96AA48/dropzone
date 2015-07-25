@@ -19,7 +19,16 @@ $('.container .dropzone').on('drop',
   }
 );
 
+//Listeners for button presses in the sidemenu
+$('.sidebar ul li').click(switch_view);
+
 function prevent_default(event) {
   event.preventDefault();
   event.stopPropagation();
+}
+
+function switch_view(event) {
+  $('.container div').fadeOut('fast', function () {
+    $('.container .' + event.currentTarget.className).fadeIn('fast');
+  });
 }
