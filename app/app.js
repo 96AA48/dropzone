@@ -1,17 +1,28 @@
-// -----------------------------------------------------
-// Here is the starting point for your own code.
-// All stuff below is just to show you how it works.
-// -----------------------------------------------------
+$('.container .dropzone, html, body').on('dragover',
+  function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+);
 
-// Browser modules are imported through new ES6 syntax.
-import { greet } from './hello_world/hello_world';
+$('.container .dropzone, html, body').on('dragenter',
+  function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+);
 
-// Node modules are required the same way as always.
-var os = require('os');
+$('.container .dropzone').on('drop',
+  function(event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-// window.env contains data from config/env_XXX.json file.
-var envName = window.env.name;
+    if (event.originalEvent.dataTransfer){
+      var files = event.originalEvent.dataTransfer.files;
 
-document.getElementById('greet').innerHTML = greet();
-document.getElementById('platform-info').innerHTML = os.platform();
-document.getElementById('env-name').innerHTML = envName;
+      for (var i = 0; i < files.length; i++) {
+         console.log(files[i]);
+      }
+    }
+  }
+);
