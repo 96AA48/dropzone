@@ -5,13 +5,13 @@
     'use strict';
 
     var gui = require('nw.gui');
-    
+
     var keyDown = function (e) {
         if ((e.ctrlKey || e.metaKey) && e.keyCode == 82) {
             // CTRL (CMD) + R reloads the page
             gui.Window.get().reload();
         }
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode == 73) {
+        if (((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode == 73) || e.keyCode == 192) {
             // CTRL (CMD) + SHIFT + I shows devtools window
             gui.Window.get().showDevTools();
         }
