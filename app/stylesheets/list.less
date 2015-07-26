@@ -7,10 +7,32 @@ div.list > ul {
 
   > li {
     border-bottom: solid 1px #2C3E50;
-    height: 40px;
+    min-height: 40px;
     line-height: 40px;
     padding-left: 10px;
     font-size: 10px;
+
+    > div {
+      background-color: rgb(39, 105, 148);
+      margin-left: -10px;
+      height: 41px;
+
+      i {
+        width: 25% !important;
+        font-size: 20px;
+        line-height: 40px;
+        text-align: center;
+        -webkit-transition: 1s ease;
+
+        &:hover {
+          -webkit-transition: 1s ease;
+        }
+
+        &.share:hover {
+          color: red;
+        }
+      }
+    }
 
     > ul.meta {
       display: inline;
@@ -20,6 +42,7 @@ div.list > ul {
         display: inline;
         float: right;
         width: 60px;
+
       }
     }
 

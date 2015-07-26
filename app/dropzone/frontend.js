@@ -39,22 +39,24 @@ function switch_view(event) {
 
 function build_list() {
   console.log('Building list');
+  $('div.list > ul').html('');
+
   database.list(function (list) {
+    if (list.length == 0) $('div.list > ul').append('<li>No files were dropped yet');
     for (var i = 0; i < list.length; i++) {
-      console.log(i);
       (function (i) {
         $('div.list > ul').append(
           '<li>' +
           '<span>' + list[i].name + '</span>' +
           '<ul class="meta">' +
-            '<li>' + list[i].type || 'directory' + '</li>' +
+            '<li>' + (list[i].type || 'directory') + '</li>' +
             '<li>' + utils.parse_size(list[i].size) + '</li>' +
           '</ul>' +
           '<div>' +
             '<i class="material-icons share">share</i>' +
-            '<i class="material-icons share">folder</i>' +
-            // '<i class="material-icons share">share</i>' +
-            // '<i class="material-icons share">share</i>' +
+            '<i class="material-icons folder">folder</i>' +
+            '<i class="material-icons remove">remove_circle</i>' +
+            '<i class="material-icons web">web</i>' +
           '<div>' +
           '</li>'
         );
