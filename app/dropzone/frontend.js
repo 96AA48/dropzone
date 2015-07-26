@@ -1,5 +1,6 @@
 //frontend.js
 var database = require('./database');
+var utils = require('./utils');
 var $ = require('jquery');
 
 //Frontend listeners for dropping files
@@ -28,7 +29,36 @@ function prevent_default(event) {
 }
 
 function switch_view(event) {
-  $('.container div').fadeOut('fast', function () {
-    $('.container .' + event.currentTarget.className).fadeIn('fast');
+  $('.container div').fadeOut(250, function () {
+    setTimeout(function () {$('.container .' + event.currentTarget.className).fadeIn(250) }, 250);
+  });
+
+  if (event.currentTarget.className == 'list') build_list();
+  // else
+}
+
+function build_list() {
+  console.log('Building list');
+  database.list(function (list) {
+    for (var i = 0; i < list.length; i++) {
+      console.log(i);
+      (function (i) {
+        $('div.list > ul').append(
+          '<li>' +
+          '<span>' + list[i].name + '</span>' +
+          '<ul class="meta">' +
+            '<li>' + list[i].type || 'directory' + '</li>' +
+            '<li>' + utils.parse_size(list[i].size) + '</li>' +
+          '</ul>' +
+          '<div>' +
+            '<i class="material-icons share">share</i>' +
+            '<i class="material-icons share">folder</i>' +
+            // '<i class="material-icons share">share</i>' +
+            // '<i class="material-icons share">share</i>' +
+          '<div>' +
+          '</li>'
+        );
+      }(i))
+    }
   });
 }
