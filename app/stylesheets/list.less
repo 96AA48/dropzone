@@ -11,6 +11,14 @@ div.list > ul {
     line-height: 40px;
     padding-left: 10px;
     font-size: 10px;
+    overflow: hidden;
+    height: 40px;
+    -webkit-transition: .4s ease;
+
+    &.clicked {
+      height: 81px;
+      -webkit-transition: .4s ease;
+    }
 
     > div {
       background-color: rgb(39, 105, 148);
@@ -22,14 +30,26 @@ div.list > ul {
         font-size: 20px;
         line-height: 40px;
         text-align: center;
-        -webkit-transition: 1s ease;
+        -webkit-transition: .4s ease;
 
         &:hover {
-          -webkit-transition: 1s ease;
+          -webkit-transition: .4s ease;
         }
 
         &.share:hover {
-          color: red;
+          color: #4385F5;
+        }
+
+        &.folder:hover {
+          color: #109D59;
+        }
+
+        &.remove:hover {
+          color: #DC4437;
+        }
+
+        &.web:hover {
+          color: #FCBE1F;
         }
       }
     }
