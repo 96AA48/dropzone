@@ -23,10 +23,10 @@ app.get('/download/:file', function (req, res, next) {
 
 app.param('file', function (req, res, next, file) {
   database.get(file, function (database_entry) {
-    res.sendFile(database_entry.path, null, function (err) {
+    res.sendFile(database_entry.path, {headers: {'Content-Type': 'application/octet-stream'}}, function (err) {
       if (err) console.warn(err);
     });
   });
 });
 
-module.exports = function () {app.listen(9648);};
+module.exports = function () {app.listen(1024);};
