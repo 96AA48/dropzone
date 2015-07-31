@@ -19,6 +19,8 @@
     "position": "center"
   },
   "dependencies": {
+    "express": "^4.13.1",
+    "express-less": "0.0.8",
     "fs-jetpack": "^0.6.4",
     "nedb": "^1.1.2"
   }

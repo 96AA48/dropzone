@@ -1,0 +1,10 @@
+html
+  head
+    title Dropzone
+    link(rel="stylesheet", href="/less/style.css", type="text/css")
+  
+  body
+    ul
+      for item in list
+        li
+        a(href="/download/"+ item.name)= item.name
