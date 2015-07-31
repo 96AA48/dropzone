@@ -1,8 +1,8 @@
 html
   head
     title Dropzone
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
-    //- link(rel="stylesheet", href="/less/skeleton.css", type="text/css")
     link(rel="stylesheet", href="/less/style.css", type="text/css")
   
   body
@@ -16,6 +16,11 @@ html
             span= item.name
             ul.meta
               li= item.type || 'directory'
-              li= item.size
+              li= utils.parse_size(item.size)
             div
               i.material-icons.share share
+              a(href="/download/" + item.name)
+                i.material-icons.download file_download
+              i.material-icons.preview pageview
+              i.material-icons.play play_arrow
+   script(src="/js/script.js", type="text/javascript")
