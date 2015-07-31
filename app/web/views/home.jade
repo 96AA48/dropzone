@@ -1,10 +1,21 @@
 html
   head
     title Dropzone
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+    //- link(rel="stylesheet", href="/less/skeleton.css", type="text/css")
     link(rel="stylesheet", href="/less/style.css", type="text/css")
   
   body
-    ul
-      for item in list
-        li
-        a(href="/download/"+ item.name)= item.name
+    #wrapper
+      .topbar
+        h3 Dropzone 
+        i.material-icons.cloud cloud
+      ul.list
+        for item in list
+          li
+            span= item.name
+            ul.meta
+              li= item.type || 'directory'
+              li= item.size
+            div
+              i.material-icons.share share
