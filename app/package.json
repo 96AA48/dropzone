@@ -9,7 +9,7 @@
     "icon": "icon.png",
     "show": true,
     "toolbar": false,
-    "frame": false,
+    "frame": true,
     "width": 450,
     "height": 500,
     "min_width": 450,
