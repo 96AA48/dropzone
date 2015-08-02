@@ -1,0 +1,36 @@
+.connection {
+  > div {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 100%;
+    margin-top: 60px;
+
+    &.available {
+      background-color: green;
+    }
+
+    &.unknown {
+      background-color: yellow;
+    }
+
+    &.notavailable {
+      background-color: red;
+    }
+
+    > i {
+      font-size: 130px;
+      text-align: center;
+      height: 150px;
+      width: 150px;
+      line-height: 150px;
+    }
+  }
+
+  > span {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-top: 100px;
+  }
+}

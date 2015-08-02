@@ -1,6 +1,7 @@
 //frontend.js
 var database = require('./database');
 var utils = require('./utils');
+var http = require('http');
 var $ = require('jquery');
 
 //Frontend listeners for dropping files
@@ -29,11 +30,12 @@ function prevent_default(event) {
 }
 
 function switch_view(event) {
-  $('.container div').fadeOut(250, function () {
+  $('.container > div').fadeOut(250, function () {
     setTimeout(function () {$('.container .' + event.currentTarget.className).fadeIn(250) }, 250);
   });
 
   if (event.currentTarget.className == 'list') build_list();
+  else if (event.currentTarget.className == 'connection') check_availablity();
   // else
 }
 
@@ -65,6 +67,33 @@ function build_list() {
 
     $('div.list > ul > li').click(function () {
       $(this).attr('class', $(this).attr('class') == 'clicked' ? '' : 'clicked');
+    });
+  });
+}
+
+function check_availablity() {
+  http.get('http://localhost:1024', function (res) {
+    var _data = '';
+
+    res.on('data', function (data) {
+      _data += data;
+    });
+
+    res.on('end', function () {
+      if ((_data.match('<meta content="dropzone"/>') || []).length > 0) {
+        $('.topbar i').text('cloud_done');
+        $('.connection > div').attr('class', 'available');
+        setTimeout(function () {$('.topbar i').text('cloud');}, 3000);
+        $('.connection > div > i').text('done');
+        $('.connection > span').text('Your dropzone is currently available.');
+      }
+      else {
+        $('.topbar i').text('cloud_off');
+        $('.connection > div').attr('class', 'notavailable');
+        setTimeout(function () {$('.topbar i').text('cloud');}, 3000);
+        $('.connection > div > i').text('clear')
+        $('.connection > span').text('Your dropzone is currently not available via the set address.');
+      }
     });
   });
 }
