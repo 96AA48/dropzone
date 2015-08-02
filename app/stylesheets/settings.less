@@ -1,0 +1,36 @@
+.settings {
+  > div {
+    &:first-child {
+      float: left;
+      width: ~"calc(50% - 15px)";
+      margin-left: 15px;
+    }
+
+    &:last-child {
+      float: right;
+      width: ~"calc(50% - 16px)";
+      height: 100%;
+      padding-left: 15px;
+      border-left: solid 1px #2C3E50;
+    }
+
+    label, input {
+      display: block;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 5px;
+      width: 85%;
+      border-radius: 3px;
+      border: solid 1px #2C3E50;
+      background-color: #3498DB;
+      color: #FFF;
+
+      &::-webkit-input-placeholder {
+        color: #DDD;
+      }
+    }
+
+  }
+}
