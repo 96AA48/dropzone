@@ -1,6 +1,7 @@
 //frontend.js
 var database = require('./database');
 var utils = require('./utils');
+var config = require('./settings');
 var http = require('http');
 var $ = require('jquery');
 
@@ -72,7 +73,7 @@ function build_list() {
 }
 
 function check_availablity() {
-  http.get('http://localhost:1024', function (res) {
+  http.get('http://' + config.get().host + ':' + config.get().port, function (res) {
     var _data = '';
 
     res.on('data', function (data) {

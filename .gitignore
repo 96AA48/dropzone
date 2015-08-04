@@ -3,3 +3,4 @@ build/
 releases/
 node_modules/
 /**/node_modules/
+app/dropzone/settings.json

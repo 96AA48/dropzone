@@ -6,6 +6,7 @@ var less = require('express-less');
 //import self-written modules.
 var database = require('./database');
 var utils = require('./utils');
+var config = require('./settings');
 
 //setting up app specific settings
 app.set('view engine', 'jade');
@@ -31,4 +32,4 @@ app.param('file', function (req, res, next, file) {
   });
 });
 
-module.exports = function () {app.listen(1024);};
+module.exports = function () {app.listen(config.get().port, config.get().host);};
