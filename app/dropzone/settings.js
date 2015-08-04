@@ -1,34 +1,33 @@
 //settings.js
-var Datastore = require('nedb');
-var db = new Datastore(__dirname + '/dropzone/settings.db');
+var fs = require('fs');
 
-function set(setting) {
-  db.loadDatabase();
-  console.log('Setting settings:', setting);
-
-  db.update({'setting': setting}, setting, {upsert: true}, function (err) {
-    if (err) console.warn('Error adding setting', err);
-  });
+function get(setting) {
+  console.log('Getting setting', setting || 'all')
+  if (!fs.existsSync(__dirname + '/settings.json')) first_run();
+  var settings = JSON.parse(fs.readFileSync(__dirname + '/settings.json'));
+  if (setting) return settings[setting];
+  else return settings;
 }
 
-function list(callback) {
-  db.loadDatabase();
-  console.log('Getting all settings');
-
-  db.find({}, function (err, settings) {
-    if (err) console.warn('Error getting settings', err);
-    else callback(settings);
-  });
+function set(setting, value) {
+  console.log('Setting setting', setting, 'with', value);
+  if (!fs.existsSync(__dirname + '/settings.json')) first_run();
+  var settings = JSON.parse(fs.readFileSync(__dirname + '/settings.json'));
+  settings[setting] = value;
+  fs.writeFileSync(__dirname + '/settings.json', JSON.stringify(settings, null, 2));
 }
 
-function get(query, callback) {
-  db.loadDatabase();
-  console.log('Getting a setting with', query);
+function first_run() {
+  console.log('Doing settings first_run');
+  var settings = {
+    host: 'localhost',
+    port: 9648
+  };
 
-  db.findOne({name: query}, function (err, setting) {
-    if (err) console.warn('Error getting setting', err);
-    else callback(setting);
-  });
+  fs.writeFileSync(__dirname + '/settings.json', JSON.stringify(settings, null, 2));
 }
 
-module.exports = {'set': set, 'list': list, 'get': get};
+module.exports = {
+  'set': set,
+  'get': get
+}
