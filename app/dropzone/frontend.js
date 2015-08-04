@@ -51,7 +51,6 @@ function build_list() {
     last_list = list;
     if (list.length == 0) $('div.list > ul').append('<li>No files were dropped yet');
     for (var i = 0; i < list.length; i++) {
-      (function (i) {
         $('div.list > ul').append(
           '<li>' +
           '<span>' + list[i].name + '</span>' +
@@ -60,6 +59,7 @@ function build_list() {
             '<li>' + utils.parse_size(list[i].size) + '</li>' +
           '</ul>' +
           '<div>' +
+            '<i class="material-icons open">open_in_new</i>' +
             '<i class="material-icons share">share</i>' +
             '<i class="material-icons folder">folder</i>' +
             '<i class="material-icons remove">remove_circle</i>' +
@@ -67,7 +67,6 @@ function build_list() {
           '<div>' +
           '</li>'
         );
-      }(i))
     }
 
     $('div.list > ul > li').click(function () {
@@ -76,7 +75,8 @@ function build_list() {
 
     $('div.list > ul > li > div > i').click(function () {
       var index = $($(this).parents()[1]).index();
-      if ($(this).text() == 'share') clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
+      if ($(this).text() == 'open_in_new') open(last_list[index].path); 
+      else if ($(this).text() == 'share') clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
       else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
       else if ($(this).text() == 'remove');
       else if ($(this).text() == 'web');
