@@ -5,6 +5,7 @@ var config = require('./settings');
 var http = require('http');
 var $ = require('jquery');
 var gui = global.gui;
+var last_list = [];
 
 //Frontend listeners for dropping files
 $('.container .dropzone, html, body').on('dragover', prevent_default);
@@ -47,6 +48,7 @@ function build_list() {
   $('div.list > ul').html('');
 
   database.list(function (list) {
+    last_list = list;
     if (list.length == 0) $('div.list > ul').append('<li>No files were dropped yet');
     for (var i = 0; i < list.length; i++) {
       (function (i) {
@@ -70,6 +72,14 @@ function build_list() {
 
     $('div.list > ul > li').click(function () {
       $(this).attr('class', $(this).attr('class') == 'clicked' ? '' : 'clicked');
+    });
+
+    $('div.list > ul > li > div > i').click(function () {
+      var index = $($(this).parents()[1]).index();
+      if ($(this).text() == 'share') clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
+      else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
+      else if ($(this).text() == 'remove');
+      else if ($(this).text() == 'web');
     });
   });
 }
@@ -103,4 +113,8 @@ function check_availablity() {
 
 function open(location) {
   gui.Shell.openExternal(location);
+}
+
+function clipboard(str) {
+  gui.Clipboard.get().set(str, 'text');
 }
