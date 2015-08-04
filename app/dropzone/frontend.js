@@ -4,6 +4,7 @@ var utils = require('./utils');
 var config = require('./settings');
 var http = require('http');
 var $ = require('jquery');
+var gui = global.gui;
 
 //Frontend listeners for dropping files
 $('.container .dropzone, html, body').on('dragover', prevent_default);
@@ -37,6 +38,7 @@ function switch_view(event) {
 
   if (event.currentTarget.className == 'list') build_list();
   else if (event.currentTarget.className == 'connection') check_availablity();
+  else if (event.currentTarget.className == 'open') open('http://' + config.get().host + ':' + config.get().port);
   // else
 }
 
@@ -97,4 +99,8 @@ function check_availablity() {
       }
     });
   });
+}
+
+function open(location) {
+  gui.Shell.openExternal(location);
 }
