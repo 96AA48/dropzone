@@ -1,0 +1,19 @@
+include header
+#wrapper
+  .topbar
+    .back
+      a(href="/") 
+        i.material-icons.back arrow_back
+    h3 Dropzone - #{file.name}
+    i.material-icons.cloud cloud
+  .preview
+      pre
+        code(class="language-#{file.type.split('/')[1] || file.name.split('.')[file.name.split('.').length - 1]}")=content
+  .info
+    ul.list
+      li Name : #{file.name}
+      li Size: #{utils.parse_size(file.size)}
+      li Type: #{file.type || file.name.split('.')[file.name.split('.').length - 1]}
+      li Path: #{file.path}
+      li Last Modified: #{file.lastModifiedDate}
+script(src="/js/prism.js", type="text/javascript")

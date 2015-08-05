@@ -1,27 +1,21 @@
-html
-  head
-    title Dropzone
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
-    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
-    link(rel="stylesheet", href="/less/style.css", type="text/css")
-    meta(content="dropzone")
-  
-  body
-    #wrapper
-      .topbar
-        h3 Dropzone 
-        i.material-icons.cloud cloud
-      ul.list
-        for item in list
-          li
-            span= item.name
-            ul.meta
-              li= item.type || 'directory'
-              li= utils.parse_size(item.size)
-            div
-              i.material-icons.share share
-              a(href="/download/" + item.name)
-                i.material-icons.download file_download
-              i.material-icons.preview pageview
-              i.material-icons.play play_arrow
-   script(src="/js/script.js", type="text/javascript")
+include header
+#wrapper
+  .topbar
+    h3 Dropzone
+    i.material-icons.cloud cloud
+
+  ul.list
+    for item in list
+      li
+        span= item.name
+        ul.meta
+          li= item.type || 'directory'
+          li= utils.parse_size(item.size)
+        div
+          i.material-icons.share share
+          a(href="/download/#{item.name}")
+            i.material-icons.download file_download
+          a(href="/preview/#{item.name}")
+            i.material-icons.preview pageview
+          i.material-icons.play play_arrow
+script(src="/js/script.js", type="text/javascript")
