@@ -31,4 +31,9 @@ function get(query, callback) {
   });
 }
 
-module.exports = {'add': add, 'list': list, 'get': get};
+function rem(id) {
+  console.log('Removing document with id', id);
+  db.remove({_id: id});
+}
+
+module.exports = {'add': add, 'list': list, 'get': get, 'rem': rem};

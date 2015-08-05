@@ -8,8 +8,8 @@ var gui = global.gui;
 var last_list = [];
 
 //Frontend listeners for dropping files
-$('.container .dropzone, html, body').on('dragover', prevent_default);
-$('.container .dropzone, html, body').on('dragenter', prevent_default);
+$('.container, .dropzone, html, body, *').on('dragover', prevent_default);
+$('.container, .dropzone, html, body, *').on('dragenter', prevent_default);
 $('.container .dropzone').on('drop',
   function(event) {
     prevent_default(event);
@@ -75,11 +75,11 @@ function build_list() {
 
     $('div.list > ul > li > div > i').click(function () {
       var index = $($(this).parents()[1]).index();
-      if ($(this).text() == 'open_in_new') open(last_list[index].path); 
+      if ($(this).text() == 'open_in_new') open(last_list[index].path);
       else if ($(this).text() == 'share') clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
       else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
-      else if ($(this).text() == 'remove');
-      else if ($(this).text() == 'web');
+      else if ($(this).text() == 'remove_circle') database.rem(last_list[index]._id);
+      else if ($(this).text() == 'web') open('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
     });
   });
 }
