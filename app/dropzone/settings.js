@@ -20,7 +20,7 @@ function set(setting, value) {
 function first_run() {
   console.log('Doing settings first_run');
   var settings = {
-    host: 'localhost',
+    host: null,
     port: 1024
   };
 
