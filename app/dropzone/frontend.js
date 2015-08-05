@@ -63,7 +63,7 @@ function build_list() {
             '<i class="material-icons share">share</i>' +
             '<i class="material-icons folder">folder</i>' +
             '<i class="material-icons remove">remove_circle</i>' +
-            '<i class="material-icons web">web</i>' +
+            '<i class="material-icons web">open_in_browser</i>' +
           '<div>' +
           '</li>'
         );
