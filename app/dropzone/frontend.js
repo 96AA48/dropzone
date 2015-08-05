@@ -27,6 +27,9 @@ $('.container .dropzone').on('drop',
 //Listeners for button presses in the sidemenu
 $('.sidebar ul li').click(switch_view);
 
+//Listener for clicking the save_settings button
+$('#save_settings').click(save_settings);
+
 function prevent_default(event) {
   event.preventDefault();
   event.stopPropagation();
@@ -109,6 +112,11 @@ function check_availablity() {
       }
     });
   });
+}
+
+function save_settings() {
+  config.set('host', $('input#host').val() || 'localhost');
+  config.set('port', parseInt($('input#port').val()) || 9648);
 }
 
 function open(location) {

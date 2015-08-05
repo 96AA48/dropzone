@@ -21,7 +21,7 @@ function first_run() {
   console.log('Doing settings first_run');
   var settings = {
     host: 'localhost',
-    port: 9648
+    port: 1024
   };
 
   fs.writeFileSync(__dirname + '/settings.json', JSON.stringify(settings, null, 2));
