@@ -84,7 +84,7 @@ function build_list() {
       var index = $($(this).parents()[1]).index();
       if ($(this).text() == 'open_in_new') open(last_list[index].path);
       else if ($(this).text() == 'share') {
-        clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
+        clipboard('http://' + config.get().host + ':' + config.get().port + '/preview/' + last_list[index].name);
         feedback('Copied the link to your clipboard :D');
       }
       else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
