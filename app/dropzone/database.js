@@ -32,8 +32,13 @@ function get(query, callback) {
 }
 
 function rem(id) {
-  console.log('Removing document with id', id);
-  db.remove({_id: id});
+  console.log('Removing document with ', id);
+  if (typeof id == 'string') db.remove({_id: id});
+  else {
+    for (i = 0; i < id.length; i++) {
+      db.remove({_id: id[i]._id});
+    }
+  }
 }
 
 module.exports = {'add': add, 'list': list, 'get': get, 'rem': rem};
