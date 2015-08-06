@@ -20,6 +20,13 @@ div.list > ul {
       -webkit-transition: .4s ease;
     }
 
+    &.removed {
+      height: 0px;
+      -webkit-transition: .4s ease;
+      min-height: initial;
+      border: none;
+    }
+
     > div {
       background-color: rgb(39, 105, 148);
       margin-left: -10px;
