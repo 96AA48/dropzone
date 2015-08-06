@@ -20,6 +20,9 @@ $('.container .dropzone').on('drop',
       for (var i = 0; i < files.length; i++) {
         database.add(files[i]);
       }
+      console.log(files);
+      if (files.length == 1) feedback('Dropped ' + files[0].name.substr(0, 15) + (files[0].name.length >= 15 ? '...' : '.'));
+      else feedback('Dropped multiple files.');
     }
   }
 );
@@ -80,12 +83,16 @@ function build_list() {
     $('div.list > ul > li > div > i').click(function () {
       var index = $($(this).parents()[1]).index();
       if ($(this).text() == 'open_in_new') open(last_list[index].path);
-      else if ($(this).text() == 'share') clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
+      else if ($(this).text() == 'share') {
+        clipboard('http://' + config.get().host + ':' + config.get().port + '/download/' + last_list[index].name);
+        feedback('Copied the link to your clipboard :D');
+      }
       else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
       else if ($(this).text() == 'remove_circle') {
         $($(this).parents()[1]).addClass('removed');
       	database.rem(last_list[index]._id);
-        setTimeout($($(this).parents()[1]).remove(), 2000);
+        setTimeout(build_list, 500);
+        feedback('Undropped ' + last_list[index].name.substr(0, 15) + (last_list[index].name.length >= 15 ? '...' : '.'));
       }
       else if ($(this).text() == 'open_in_browser') open('http://' + config.get().host + ':' + config.get().port + '/preview/' + last_list[index].name);
     });
@@ -129,6 +136,8 @@ function save_settings() {
   config.set('host', $('input#host').val() || 'localhost');
   config.set('use_custom_host', $('input#use_custom_host').prop('checked'));
   config.set('port', parseInt($('input#port').val()) || 9648);
+
+  feedback('Saved your settings');
 }
 
 function open(location) {
@@ -138,3 +147,13 @@ function open(location) {
 function clipboard(str) {
   gui.Clipboard.get().set(str, 'text');
 }
+
+function feedback(str) {
+  $('#feedback span').text(str);
+  $('#feedback').addClass('show');
+  setTimeout(function () {
+    $('#feedback').removeClass('show');
+  }, 1500);
+}
+
+module.exports = {'feedback': feedback};
