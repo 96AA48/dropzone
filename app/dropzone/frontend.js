@@ -57,7 +57,7 @@ function build_list() {
     for (var i = 0; i < list.length; i++) {
         $('div.list > ul').append(
           '<li>' +
-          '<span>' + list[i].name + '</span>' +
+          '<span>' + list[i].name.substr(0, 45) + (list[i].name.length >= 45 ? '...' : '') + '</span>' +
           '<ul class="meta">' +
             '<li>' + (list[i].type || 'directory') + '</li>' +
             '<li>' + utils.parse_size(list[i].size) + '</li>' +
