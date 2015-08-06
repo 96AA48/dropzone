@@ -39,7 +39,7 @@ app.get('/preview/:preview_file', function (req, res, next) {
 
 app.param('preview_file', function (req, res, next, preview_file) {
   database.get(preview_file, function (database_entry) {
-    var content = database_entry.type.match(/video|audio/g) == 0 ? fs.readFileSync(database_entry.path) : '';
+    var content = !database_entry.type.match(/video|audio/g) ? fs.readFileSync(database_entry.path) : '';
     res.render('preview', {'file': database_entry, 'content': content, 'utils': utils});
   });
 });
