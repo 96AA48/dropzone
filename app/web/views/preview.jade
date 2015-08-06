@@ -7,13 +7,15 @@ include header
     h3 #{file.name.substr(0, 35)} #{file.name.length >= 35 ? '...' : ''}
     i.material-icons.cloud cloud
   .preview
-    if !file.type.match(/video|audio/g)
+    if !file.type.match(/video|audio|image/g)
       pre
         code(class="language-#{file.type.split('/')[1] || file.name.split('.')[file.name.split('.').length - 1]}")=content
     else if file.type.match(/video/g)
       video(controls, src="/download/#{file.name}")
-    else
+    else if file.type.match(/audio/g)
       audio(controls, src="/download/#{file.name}")
+    else if file.type.match(/image/g)
+      img(src="/download/#{file.name}")
   .info
     ul.list
       li Name : #{file.name}
