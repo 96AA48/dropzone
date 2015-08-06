@@ -62,10 +62,12 @@
     <div class="settings">
       <div>
         <label>Hostname</label>
+        <label>Use custom hostname</label>
         <label>Port</label>
       </div>
       <div>
         <input type="text" id="host" placeholder="default: localhost" />
+        <input type="checkbox" id="use_custom_host" />
         <input type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="port" placeholder="default: 1024" />
         <button id="save_settings">Save settings</button>
       </div>

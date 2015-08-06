@@ -42,6 +42,7 @@ function switch_view(event) {
 
   if (event.currentTarget.className == 'list') build_list();
   else if (event.currentTarget.className == 'connection') check_availablity();
+  else if (event.currentTarget.className == 'settings') get_settings();
   else if (event.currentTarget.className == 'open') open('http://' + config.get().host + ':' + config.get().port);
   // else
 }
@@ -114,8 +115,15 @@ function check_availablity() {
   });
 }
 
+function get_settings() {
+  $('input#host').val(config.get().host);
+  $('input#use_custom_host').prop('checked', config.get().use_custom_host);
+  $('input#port').val(config.get().port);
+}
+
 function save_settings() {
   config.set('host', $('input#host').val() || 'localhost');
+  config.set('use_custom_host', $('input#use_custom_host').prop('checked'));
   config.set('port', parseInt($('input#port').val()) || 9648);
 }
 

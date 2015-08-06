@@ -30,6 +30,28 @@
       &::-webkit-input-placeholder {
         color: #DDD;
       }
+
+      &[type="checkbox"] {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        margin: 15px auto;
+        position: relative;
+        left: -8px;
+
+        &:checked {
+          background-color: #2C3E50;
+
+          &:before {
+            content: 'x';
+            position: relative;
+            top: -7px;
+            font-size: 18px;
+            left: -1px;
+            content: 'x';
+          }
+        }
+      }
     }
   }
 

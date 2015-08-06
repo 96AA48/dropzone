@@ -44,4 +44,4 @@ app.param('preview_file', function (req, res, next, preview_file) {
   });
 });
 
-module.exports = function () {app.listen(config.get().port, config.get().host);};
+module.exports = function () {app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);};
