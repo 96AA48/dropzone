@@ -57,6 +57,14 @@ function build_list() {
   database.list(function (list) {
     last_list = list;
     if (list.length == 0) $('div.list > ul').append('<li>No files were dropped yet');
+    else $('div.list > ul').append(
+      '<li id="commands"><div>' +
+      '<i class="material-icons share">share</i>' +
+      '<i class="material-icons remove">remove_circle</i>' +
+      '<i class="material-icons web">open_in_browser</i>' +
+      '</div></li>'
+    )
+
     for (var i = 0; i < list.length; i++) {
         $('div.list > ul').append(
           '<li>' +
@@ -81,20 +89,39 @@ function build_list() {
     });
 
     $('div.list > ul > li > div > i').click(function () {
-      var index = $($(this).parents()[1]).index();
-      if ($(this).text() == 'open_in_new') open(last_list[index].path);
-      else if ($(this).text() == 'share') {
-        clipboard('http://' + config.get().host + ':' + config.get().port + '/preview/' + last_list[index].name);
-        feedback('Copied the link to your clipboard :D');
+      var index = $($(this).parents()[1]).index() - 1;
+
+      //If it's not the main command pallete in the list view.
+      if (!$($(this).parents()[1]).attr('id')) {
+        if ($(this).text() == 'open_in_new') open(last_list[index].path);
+        else if ($(this).text() == 'share') {
+          clipboard('http://' + config.get().host + ':' + config.get().port + '/preview/' + last_list[index].name);
+          feedback('Copied the link to your clipboard :D');
+        }
+        else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
+        else if ($(this).text() == 'remove_circle') {
+          $($(this).parents()[1]).addClass('removed');
+        	database.rem(last_list[index]._id);
+          setTimeout(build_list, 500);
+          feedback('Undropped ' + last_list[index].name.substr(0, 15) + (last_list[index].name.length >= 15 ? '...' : '.'));
+        }
+        else if ($(this).text() == 'open_in_browser') open('http://' + config.get().host + ':' + config.get().port + '/preview/' + last_list[index].name);
       }
-      else if ($(this).text() == 'folder') open(last_list[index].path.split(/\\|\//g).splice(0, last_list[index].path.split(/\\|\//g).length - 1).join('\/'));
-      else if ($(this).text() == 'remove_circle') {
-        $($(this).parents()[1]).addClass('removed');
-      	database.rem(last_list[index]._id);
-        setTimeout(build_list, 500);
-        feedback('Undropped ' + last_list[index].name.substr(0, 15) + (last_list[index].name.length >= 15 ? '...' : '.'));
+      //When it is
+      else {
+        if ($(this).text() == 'share') {
+          clipboard('http://' + config.get().host + ':' + config.get().port);
+          feedback('Copied Dropzone location to clipboard!');
+        }
+        else if ($(this).text() == 'remove_circle') {
+          $('div.list > ul > li').addClass('removed');
+        	database.rem(last_list);
+          setTimeout(build_list, 500);
+          feedback('Undropped all files');
+        }
+        else if ($(this).text() == 'open_in_browser') open('http://' + config.get().host + ':' + config.get().port);
       }
-      else if ($(this).text() == 'open_in_browser') open('http://' + config.get().host + ':' + config.get().port + '/preview/' + last_list[index].name);
+
     });
   });
 }
