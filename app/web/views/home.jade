@@ -18,4 +18,6 @@ include header
             a(href="/preview/#{item.name}")
               i.material-icons.preview pageview
             i.material-icons.play play_arrow
+      if list.length == 0
+        li No files have been dropped yet.
 script(src="/js/script.js", type="text/javascript")
