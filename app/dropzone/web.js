@@ -14,6 +14,7 @@ app.set('view engine', 'jade');
 app.set('views', process.cwd() + '/web/views');
 app.use('/less', less(process.cwd() + '/web/less', {debug: true}));
 app.use('/js', express.static(process.cwd() + '/web/js'));
+app.disable('view cache');
 
 app.get('/', function (req, res) {
   database.list(function (list) {
@@ -39,7 +40,7 @@ app.get('/preview/:preview_file', function (req, res, next) {
 
 app.param('preview_file', function (req, res, next, preview_file) {
   database.get(preview_file, function (database_entry) {
-    var content = !database_entry.type.match(/video|audio/g) ? fs.readFileSync(database_entry.path) : '';
+    var content = (!database_entry.type.match(/video|audio/g) && !utils.ignore_file(database_entry.name, database_entry.type)) ? fs.readFileSync(database_entry.path) : '';
     res.render('preview', {'file': database_entry, 'content': content, 'utils': utils});
   });
 });

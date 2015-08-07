@@ -20,7 +20,6 @@ $('.container .dropzone').on('drop',
       for (var i = 0; i < files.length; i++) {
         database.add(files[i]);
       }
-      console.log(files);
       if (files.length == 1) feedback('Dropped ' + files[0].name.substr(0, 15) + (files[0].name.length >= 15 ? '...' : '.'));
       else feedback('Dropped multiple files.');
     }
