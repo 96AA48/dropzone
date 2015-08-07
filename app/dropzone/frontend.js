@@ -85,7 +85,7 @@ function build_list() {
     }
 
     $('div.list > ul > li').click(function () {
-      $(this).toggleClass('clicked');
+      if (!$(this).attr('id')) $(this).toggleClass('clicked');
     });
 
     $('div.list > ul > li > div > i').click(function () {
