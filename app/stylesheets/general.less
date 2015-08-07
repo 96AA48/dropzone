@@ -1,0 +1,63 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic|Open+Sans:300italic,400italic,400,300,600);
+
+.topbar {
+  height: 55px;
+  width: 100%;
+  background-color: #2C3E50;
+  color: #E1E1E1;
+  font-family: Open Sans, sans-serif;
+  font-weight: 300 !important;
+  -webkit-app-region: drag;
+
+  * {
+    // -webkit-app-region: no-drag;
+    padding: 0;
+    margin: 0;
+  }
+
+  h3 {
+    line-height: 50px;
+    font-size: 25px !important;
+    float: left;
+    margin-left: 10px;
+  }
+
+  i {
+    float: right;
+    font-size: 35px;
+    line-height: 55px;
+    margin-right: 10px;
+  }
+}
+
+i {
+  cursor: pointer;
+}
+
+#feedback {
+  position: fixed;
+  bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.75);
+  height: 50px;
+  width: 300px;
+  left: 50%;
+  margin-left: -150px;
+  border-radius: 3px;
+  -webkit-transition: .4s ease;
+  opacity: 0;
+  pointer-events: none;
+
+  span {
+    color: #E1E1E1;
+    font-size: 14px;
+    font-family: Open Sans, sans-serif;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  &.show {
+    opacity: 1;
+    -webkit-transition: .4s ease;
+  }
+}

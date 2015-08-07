@@ -14,10 +14,7 @@ var destDir = projectDir.cwd('./build');
 
 var paths = {
     jsCodeToTranspile: [
-        'app/**/*.js',
-        'app/dropzone/**',
         'app/**/*.*',
-        'app/dropzone/*.db',
         '!app/node_modules/**',
         '!app/bower_components/**',
         '!app/vendor/**'
