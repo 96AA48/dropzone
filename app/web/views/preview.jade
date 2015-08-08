@@ -6,6 +6,25 @@ include header
         i.material-icons.back arrow_back
     h3 #{file.name.substr(0, 35)} #{file.name.length >= 35 ? '...' : ''}
     i.material-icons.cloud cloud
+  
+  div(class="sidebar")
+    ul
+      li
+        i(class="material-icons") insert_drive_file 
+        span Name : #{file.name}
+      li
+        i(class="material-icons") data_usage
+        span Size: #{utils.parse_size(file.size)}
+      li
+        i(class="material-icons") class
+        span Type: #{file.type || file.name.split('.')[file.name.split('.').length - 1]}
+      li
+        i(class="material-icons") computer
+        span Path: #{file.path}
+      li
+        i(class="material-icons") av_timer
+        span Last Modified: #{file.lastModifiedDate}
+          
   .container
     .preview
       if !file.type.match(/video|audio|image/g) && !utils.ignore_file(file.name, file.type)
@@ -20,15 +39,6 @@ include header
       else
         pre
           code(class="language-markdown") This file cannot be previewed.
-        
-    .info
-      .previewlist
-        ul
-          li Name : #{file.name}
-          li Size: #{utils.parse_size(file.size)}
-          li Type: #{file.type || file.name.split('.')[file.name.split('.').length - 1]}
-          li Path: #{file.path}
-          li Last Modified: #{file.lastModifiedDate}
           
 script(src="/js/prism.js", type="text/javascript")
 script(src="/js/script.js", type="text/javascript")
