@@ -21,16 +21,74 @@ a {
   width: 700px;
   background-color: #2980B9;
   margin: 50px auto;
-  height: 800px;
+  min-height: 260px;
 }
 
 .container {
-  height: 750px;
   overflow-y: auto;
 }
 
 div.list ul {
   height: inherit !important;
+  min-height: 750px;
+}
+
+.sidebar ul {
+  height: initial !important;
+  position: relative;
+
+  li {
+    width: 40px;
+    -webkit-transition: ease .4s .4s;
+    border-right: solid 1px #2C3E50;
+
+    i {
+      float: left;
+      width: 40px;
+      height: 40px;
+      line-height: 39px;
+    }
+
+    span {
+      font-family: Open Sans, sans-serif;
+      font-size: 16px;
+      line-height: 40px;
+      opacity: 0;
+      -webkit-transition: ease .4s;
+      display: block;
+      color: #FFF;
+    }
+
+    &:hover {
+      -webkit-transition: ease .4s;
+      background-color: #3498DB;
+      width: 700px;
+      border-right: none;
+
+      span {
+        -webkit-transition: ease .4s .4s;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.notice {
+  font-family: Open Sans, sans-serif;
+  font-size: 45px;
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 70px;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -45px;
+  margin-left: -500px;
+  width: 1000px;
+  border: solid 1px rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
 }
 
 @import '../../stylesheets/list';
