@@ -1,24 +1,27 @@
 include header
-#wrapper
-  .topbar
-    h3 Dropzone
-    i.material-icons.cloud cloud
-  .container
-    .list
-      ul
-        for item in list
-          li
-            span= item.name
-            ul.meta
-              li= item.type || 'directory'
-              li= utils.parse_size(item.size)
-            div
-              i.material-icons.share share
-              a(href="/download/#{item.name}")
-                i.material-icons.download file_download
-              a(href="/preview/#{item.name}")
-                i.material-icons.preview pageview
-              i.material-icons.play play_arrow
-        if list.length == 0
-          li No files have been dropped yet.
+
+if list.length == 0
+  .notice No files have been dropped, please stand by
+    
+else
+  #wrapper
+    .topbar
+      h3 Dropzone
+      i.material-icons.cloud cloud
+    .container
+      .list
+        ul
+          for item in list
+            li
+              span= item.name
+              ul.meta
+                li= item.type || 'unknown'
+                li= utils.parse_size(item.size)
+              div
+                i.material-icons.share share
+                a(href="/download/#{item.name}")
+                  i.material-icons.download file_download
+                a(href="/preview/#{item.name}")
+                  i.material-icons.preview pageview
+                i.material-icons.play play_arrow
 script(src="/js/script.js", type="text/javascript")
