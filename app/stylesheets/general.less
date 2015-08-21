@@ -28,6 +28,25 @@
     line-height: 55px;
     margin-right: 10px;
   }
+
+
+  .cloud {
+    -webkit-transition: 0.25s ease;
+    &.ping {
+      -webkit-transition: 0.25s ease;
+      &.preview {
+        color: yellow;
+      }
+
+      &.connect {
+        color: blue;
+      }
+
+      &.download {
+        color: red;
+      }
+    }
+  }
 }
 
 i {
