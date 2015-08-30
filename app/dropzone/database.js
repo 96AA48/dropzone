@@ -1,12 +1,35 @@
 //database.js
+var fs = require('fs');
+var mime = require('mime');
 var Datastore = require('nedb');
 var db = new Datastore(__dirname + '/dropzone/database.db');
 
 function add(database_entry) {
   db.loadDatabase();
-  console.log('Adding database_entry :', database_entry);
+  var isDirectory = fs.statSync(database_entry.path).isDirectory();
+  if (isDirectory) {
+    database_entry.type = 'folder';
+    console.log(database_entry.name, database_entry.type);
+    var dirFiles = fs.readdirSync(database_entry.path);
+
+    for (i = 0; i < dirFiles.length; i++) {
+      //FIXME: Will do a weird loop when adding this project as a folder, not good for bigger folders.
+        (function (i) {
+          console.log(dirFiles[i]);
+          var fileStat = fs.statSync(database_entry.path + '/' + dirFiles[i]);
+          add({
+            'lastModifiedData': fileStat.birthtime,
+            'name': dirFiles[i],
+            'path': database_entry.path + '/' + dirFiles[i],
+            'size': fileStat.size,
+            'type': (fileStat.isDirectory() ? 'folder' : mime.lookup(database_entry + '/' + dirFiles[i]))
+          });
+        })(i);
+    }
+  }
 
   db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
+    console.log('Added database_entry :', database_entry);
     if (err) console.warn('Error adding database_entry', err);
   });
 }

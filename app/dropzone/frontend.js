@@ -20,6 +20,7 @@ $('.container .dropzone').on('drop',
       for (var i = 0; i < files.length; i++) {
         database.add(files[i]);
       }
+
       if (files.length == 1) feedback('Dropped ' + files[0].name.substr(0, 15) + (files[0].name.length >= 15 ? '...' : '.'));
       else feedback('Dropped multiple files.');
     }
@@ -69,7 +70,7 @@ function build_list() {
           '<li>' +
           '<span>' + list[i].name.substr(0, 45) + (list[i].name.length >= 45 ? '...' : '') + '</span>' +
           '<ul class="meta">' +
-            '<li>' + (list[i].type || 'directory') + '</li>' +
+            '<li>' + (list[i].type || 'folder') + '</li>' +
             '<li>' + utils.parse_size(list[i].size) + '</li>' +
           '</ul>' +
           '<div>' +
