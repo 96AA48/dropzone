@@ -68,7 +68,6 @@ function ping(type) {
   $('.cloud').toggleClass(ping);
 
   setTimeout(function () {
-    console.log('ping timeout', ping);
     $('.cloud').toggleClass(ping);
   }, 250);
 }
