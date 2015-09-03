@@ -1,9 +1,9 @@
 'use strict';
 
 var gulp = require('gulp');
+// var babel = require('gulp-babel');
+// var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
-var esperanto = require('esperanto');
-var map = require('vinyl-map');
 var jetpack = require('fs-jetpack');
 
 var utils = require('./utils');
@@ -14,7 +14,7 @@ var destDir = projectDir.cwd('./build');
 
 var paths = {
     jsCodeToTranspile: [
-        'app/**/*.*',
+        'app/**/*.js',
         '!app/node_modules/**',
         '!app/bower_components/**',
         '!app/vendor/**'
@@ -23,7 +23,9 @@ var paths = {
         './node_modules/**',
         './bower_components/**',
         './vendor/**',
-        './**/*.html'
+        './**/*.html',
+        './**/*.jade',
+        './**/*.less'
     ],
 }
 
@@ -50,14 +52,9 @@ gulp.task('copy-watch', copyTask);
 
 var transpileTask = function () {
     return gulp.src(paths.jsCodeToTranspile)
-    .pipe(map(function(code, filename) {
-        try {
-            var transpiled = code.toString();//esperanto.toAmd(code.toString(), { strict: true });
-        } catch (err) {
-            throw new Error(err.message + ' ' + filename);
-        }
-        return transpiled.code;
-    }))
+    // .pipe(sourcemaps.init())
+    // .pipe(babel({ modules: 'amd' }))
+    // .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(destDir.path()));
 };
 gulp.task('transpile', ['clean'], transpileTask);
