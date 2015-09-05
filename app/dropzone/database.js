@@ -1,37 +1,40 @@
 //database.js
 var fs = require('fs');
-var mime = require('mime');
 var Datastore = require('nedb');
 var db = new Datastore(__dirname + '/dropzone/database.db');
+var contents = require('folder-contents');
 
 function add(database_entry) {
   db.loadDatabase();
-  var isDirectory = fs.statSync(database_entry.path).isDirectory();
-  if (isDirectory) {
-    database_entry.type = 'folder';
-    console.log(database_entry.name, database_entry.type);
-    var dirFiles = fs.readdirSync(database_entry.path);
 
-    for (i = 0; i < dirFiles.length; i++) {
-      //FIXME: Will do a weird loop when adding this project as a folder, not good for bigger folders.
-        (function (i) {
-          console.log(dirFiles[i]);
-          var fileStat = fs.statSync(database_entry.path + '/' + dirFiles[i]);
-          add({
-            'lastModifiedData': fileStat.birthtime,
-            'name': dirFiles[i],
-            'path': database_entry.path + '/' + dirFiles[i],
-            'size': fileStat.size,
-            'type': (fileStat.isDirectory() ? 'folder' : mime.lookup(database_entry + '/' + dirFiles[i]))
-          });
-        })(i);
-    }
+  if (fs.statSync(database_entry.path).isDirectory()) {
+    addDirectory(database_entry)
+  }
+  else {
+    db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
+      console.log('Added database_entry :', database_entry);
+      if (err) console.warn('Error adding database_entry', err);
+    });
   }
 
-  db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
-    console.log('Added database_entry :', database_entry);
-    if (err) console.warn('Error adding database_entry', err);
-  });
+}
+
+function addDirectory(database_entry) {
+  var options = {
+    "path": database_entry.path,
+    "recursively": true,
+    "method": "complexPath",
+    "filter":{
+        "extensionIgnore": [],
+        "extensionAccept": [],
+        "folderIgnore": ['.git'],
+        "fileIgnore": []
+    },
+    "useFullPath": true
+  };
+  var index = contents(options);
+
+  console.log('Folder index', index);
 }
 
 function list(callback) {
