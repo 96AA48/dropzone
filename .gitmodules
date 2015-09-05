@@ -1,0 +1,3 @@
+[submodule "app/node_modules/folder-contents"]
+	path = app/node_modules/folder-contents
+	url = https://github.com/96AA48/folder-contents.git
