@@ -1,6 +1,6 @@
 //web.js
 var express = require('express');
-var app = express('express');
+var app = express();
 var less = require('express-less');
 var fs = require('fs');
 var $ = require('jquery');
