@@ -12,11 +12,10 @@ function add(database_entry) {
   }
   else {
     db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
-      console.log('Added database_entry :', database_entry);
       if (err) console.warn('Error adding database_entry', err);
+      console.log('Added file :', database_entry);
     });
   }
-
 }
 
 function addDirectory(database_entry) {
@@ -32,9 +31,12 @@ function addDirectory(database_entry) {
     },
     "useFullPath": true
   };
-  var index = contents(options);
+  var database_entry = contents(options)[0];
 
-  console.log('Folder index', index);
+  db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
+    if (err) console.warn('Error adding directory', err);
+    console.log('Added directory', database_entry);
+  });
 }
 
 function list(callback) {
