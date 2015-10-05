@@ -6,6 +6,7 @@ var http = require('http');
 var $ = require('jquery');
 var gui = global.gui;
 var last_list = [];
+var currentView = 'dropzone';
 
 //Frontend listeners for dropping files
 $('.container, .dropzone, html, body, *').on('dragover', prevent_default);
@@ -39,15 +40,19 @@ function prevent_default(event) {
 }
 
 function switch_view(event) {
-  $('.container > div').fadeOut(250, function () {
-    setTimeout(function () {$('.container .' + event.currentTarget.className).fadeIn(250) }, 250);
-  });
+  if (currentView != event.currentTarget.className) {
+    $('.container > div').fadeOut(250, function () {
+      setTimeout(function () {$('.container .' + event.currentTarget.className).fadeIn(250) }, 250);
+    });
 
-  if (event.currentTarget.className == 'list') build_list();
-  else if (event.currentTarget.className == 'connection') check_availablity();
-  else if (event.currentTarget.className == 'settings') get_settings();
-  else if (event.currentTarget.className == 'open') open('http://' + config.get().host + ':' + config.get().port);
-  // else
+    if (event.currentTarget.className == 'list') build_list();
+    else if (event.currentTarget.className == 'connection') check_availablity();
+    else if (event.currentTarget.className == 'settings') get_settings();
+    else if (event.currentTarget.className == 'open') open('http://' + config.get().host + ':' + config.get().port);
+    // else
+
+    currentView = event.currentTarget.className;
+  }
 }
 
 function build_list() {
