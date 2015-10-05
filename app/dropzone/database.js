@@ -2,41 +2,41 @@
 var fs = require('fs');
 var Datastore = require('nedb');
 var db = new Datastore(__dirname + '/dropzone/database.db');
-var contents = require('folder-contents');
+var mime = require('mime');
+var folderindex = require('recursive-files');
 
 function add(database_entry) {
   db.loadDatabase();
 
   if (fs.statSync(database_entry.path).isDirectory()) {
-    addDirectory(database_entry)
+    console.log('It\'s a directory');
+    folderindex(database_entry.path, {'hidden': true}, function (err, file) {
+      var entry = getMetaData(file);
+      db.update({'name': entry.name}, entry, {'upsert': true}, function (err) {
+        if (err) console.warn('Error adding directory file', err);
+        console.log('Added directory file :', database_entry)
+      })
+    });
   }
   else {
-    db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
-      if (err) console.warn('Error adding database_entry', err);
-      console.log('Added file :', database_entry);
+    var entry = getMetaData(database_entry.path);
+    db.update({'name': entry.name}, entry, {upsert: true}, function (err) {
+      if (err) console.warn('Error adding file', err);
+      console.log('Added file :', entry);
     });
   }
 }
 
-function addDirectory(database_entry) {
-  var options = {
-    "path": database_entry.path,
-    "recursively": true,
-    "method": "complexPath",
-    "filter":{
-        "extensionIgnore": [],
-        "extensionAccept": [],
-        "folderIgnore": ['.git'],
-        "fileIgnore": []
-    },
-    "useFullPath": true
+function getMetaData(filepath) {
+  console.log(filepath);
+  var stats = fs.statSync(filepath);
+  return {
+    lastModified: stats.atime,
+    size: stats.size,
+    path: filepath,
+    name: filepath.split(/\/|\\/g)[filepath.split(/\/|\\/g).length - 1],
+    type: mime.lookup(filepath)
   };
-  var database_entry = contents(options)[0];
-
-  db.update({'name': database_entry.name}, database_entry, {upsert: true}, function (err) {
-    if (err) console.warn('Error adding directory', err);
-    console.log('Added directory', database_entry);
-  });
 }
 
 function list(callback) {
