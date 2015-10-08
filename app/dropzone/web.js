@@ -49,6 +49,7 @@ app.param('preview_file', function (req, res, next, preview_file) {
   });
 });
 
+
 function ping(type) {
   var ping = 'ping';
   switch(type) {
@@ -80,4 +81,19 @@ function feedback(str) {
   }, 1500);
 }
 
-module.exports = function () {app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);};
+module.exports = {
+  start: function () {
+    global.server = app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);
+  },
+  restart: function () {
+    global.server.close(function () {
+      console.log('Restarting the server.');
+      global.server = app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);
+    });
+  },
+  stop: function () {
+    global.server.close(function () {
+      console.log('Stopped the web server.');
+    });
+  }
+}
