@@ -1,7 +1,7 @@
 //database.js
 var fs = require('fs');
 var Datastore = require('nedb');
-var db = new Datastore(__dirname + '/dropzone/database.db');
+var db = new Datastore(global.gui.App.dataPath + '/database.db');
 var mime = require('mime');
 var folderindex = require('recursive-files');
 
