@@ -85,10 +85,12 @@ module.exports = {
   start: function () {
     global.server = app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);
   },
-  restart: function () {
+  //FIXME: Sometimes it takes A LONG TIME for the server to close.
+  restart: function (fn) {
     global.server.close(function () {
       console.log('Restarting the server.');
-      global.server = app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);
+      module.exports.start();
+      fn();
     });
   },
   stop: function () {

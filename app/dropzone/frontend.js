@@ -2,6 +2,7 @@
 var database = require('./database');
 var utils = require('./utils');
 var config = require('./settings');
+var web = require('./web');
 var http = require('http');
 var $ = require('jquery');
 var gui = global.gui;
@@ -9,8 +10,16 @@ var last_list = [];
 var currentView = 'dropzone';
 
 //Frontend listeners for dropping files
-$('.container, .dropzone, html, body, *').on('dragover', prevent_default);
-$('.container, .dropzone, html, body, *').on('dragenter', prevent_default);
+$('.container, .dropzone, html, body, *').on('dragover', function (event) {
+  prevent_default(event);
+  switch_view('dropzone');
+});
+
+$('.container, .dropzone, html, body, *').on('dragenter', function (event) {
+  prevent_default(event);
+  switch_view('dropzone');
+});
+
 $('.container .dropzone').on('drop',
   function(event) {
     prevent_default(event);
@@ -43,18 +52,19 @@ function prevent_default(event) {
 }
 
 function switch_view(event) {
-  if (currentView != event.currentTarget.className) {
+  if (typeof event == 'object') event = event.currentTarget.className;
+  if (currentView != event) {
     $('.container > div').fadeOut(250, function () {
-      setTimeout(function () {$('.container .' + event.currentTarget.className).fadeIn(250) }, 250);
+      setTimeout(function () {$('.container .' + event).fadeIn(250) }, 250);
     });
 
-    if (event.currentTarget.className == 'list') build_list();
-    else if (event.currentTarget.className == 'connection') check_availablity();
-    else if (event.currentTarget.className == 'settings') get_settings();
-    else if (event.currentTarget.className == 'open') open('http://' + config.get().host + ':' + config.get().port);
+    if (event == 'list') build_list();
+    else if (event == 'connection') check_availablity();
+    else if (event == 'settings') get_settings();
+    else if (event == 'open') open('http://' + config.get().host + ':' + config.get().port);
     // else
 
-    currentView = event.currentTarget.className;
+    currentView = event;
   }
 }
 
@@ -172,7 +182,9 @@ function save_settings() {
   config.set('use_custom_host', $('input#use_custom_host').prop('checked'));
   config.set('port', parseInt($('input#port').val()) || 9648);
 
-  feedback('Saved your settings');
+  web.restart(function () {
+    feedback('Saved your settings and restarted the server');
+  });
 }
 
 function open(location) {
