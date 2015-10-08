@@ -34,6 +34,9 @@ $('.sidebar ul li').click(switch_view);
 //Listener for clicking the save_settings button
 $('#save_settings').click(save_settings);
 
+//Remove notice
+$('#notice').toggle();
+
 function prevent_default(event) {
   event.preventDefault();
   event.stopPropagation();
