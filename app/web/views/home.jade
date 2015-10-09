@@ -18,10 +18,8 @@ else
                 li= item.type || 'unknown'
                 li= utils.parse_size(item.size)
               div
-                i.material-icons.share share
                 a(href="/download/#{item.name}")
-                  i.material-icons.download file_download
+                  i.material-icons.download.half file_download
                 a(href="/preview/#{item.name}")
-                  i.material-icons.preview pageview
-                i.material-icons.play play_arrow
+                  i.material-icons.preview.half pageview
 script(src="/js/script.js", type="text/javascript")
