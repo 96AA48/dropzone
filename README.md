@@ -18,5 +18,8 @@ There are some downsides to using Dropzone.
 ### Contributing
 Feel free to contribute with adding some pull requests or opening some issues, I'll be happy to help.
 
+### Sidenote
+Sorry for the rubbish state the code is in, I'm gonna clean it up I swear!
+
 ### License
 See the LICENSE file for more information.

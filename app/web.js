@@ -4,6 +4,7 @@ var app = express();
 var less = require('express-less');
 var fs = require('fs');
 var $ = require('jquery');
+var natman = require('natman-api');
 
 //import self-written modules.
 var database = require('./database');
@@ -84,6 +85,7 @@ function feedback(str) {
 module.exports = {
   start: function () {
     global.server = app.listen(config.get().port, config.get().use_custom_host ? config.get().host : null);
+    natman(config.get().port, config.get().port);
   },
   //FIXME: Sometimes it takes A LONG TIME for the server to close.
   restart: function (fn) {
