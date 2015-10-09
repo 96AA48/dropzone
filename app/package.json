@@ -25,6 +25,7 @@
     "jade": "^1.11.0",
     "jquery": "^2.1.4",
     "mime": "^1.3.4",
+    "natman-api": "0.0.1",
     "nedb": "^1.1.2",
     "recursive-files": "^1.0.1"
   },
